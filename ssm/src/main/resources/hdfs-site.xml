@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>3</value>
+	</property>
+
+     <property>
+       <name>dfs.ha.automatic-failover.enabled</name>
+       <value>true</value>
+     </property>
+
+	<property>
+        	<name>dfs.hosts</name>
+        	<value>/soft/hadoop/etc/dfs-hosts-include.conf</value>
+    	</property>
+	
+	<property>
+        	<name>dfs.hosts.exclude</name>
+        	<value>/soft/hadoop/etc/dfs-hosts-exclude.conf</value>
+    	</property>
+
+ 
+<!-- set ha  -->
+
+
+	<property>
+		<name>dfs.nameservices</name>
+		<value>mycluster</value>
+	</property>
+
+	<!-- myucluster下的名称节点两个id -->
+	<!-- 注意：目前仅允许2个名称节点 -->
+	<property>
+		<name>dfs.ha.namenodes.mycluster</name>
+		<value>nn1,nn2</value>
+	</property>
+
+	<property>
+		<name>dfs.namenode.rpc-address.mycluster.nn1</name>
+		<value>s100:8020</value>
+	</property>
+	<property>
+		<name>dfs.namenode.rpc-address.mycluster.nn2</name>
+		<value>s500:8020</value>
+	</property>
+	<property>
+		<name>dfs.namenode.http-address.mycluster.nn1</name>
+		<value>s100:50070</value>
+	</property>
+	<property>
+		<name>dfs.namenode.http-address.mycluster.nn2</name>
+		<value>s500:50070</value>
+	</property>
+
+	<property>
+		<name>dfs.namenode.shared.edits.dir</name>
+		<value>qjournal://s200:8485;s300:8485;s400:8485/mycluster</value>
+	</property>
+
+	<property>
+		<name>dfs.client.failover.proxy.provider.mycluster</name>
+		<value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+	</property>
+
+	<property>
+		<name>dfs.ha.fencing.methods</name>
+		<value>
+			sshfence
+		 	shell(/bin/true)      
+		</value>
+	</property>
+	<property>
+		<name>dfs.ha.fencing.ssh.private-key-files</name>
+		<value>/home/ubuntu/.ssh/id_rsa</value>
+	</property>
+
+	<property>
+		<name>dfs.journalnode.edits.dir</name>
+		<value>/home/ubuntu/hadoop/journal</value>
+	</property>     
+
+<!-- set ha over  -->
+
+
+</configuration>
